@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
+                    },
+                },
+            },
+        }
+      </script>    
+      <style type="text/tailwindcss">
+        @layer utilities {
+          .content-auto {
+            content-visibility: auto;
+          }
+        }
+      </style>
+</head>
+<body class="h-full">
+<div class="min-h-full">
+    <nav class="bg-white border-b border-black" x-data="{ isOpen: false }">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <div class="flex items-center">
+            <div class="shrink-0">
+                <a href="index.html" data-testid="icnHeaderIcon">
+                    <img src="./assets/images/logo1.png" alt="snackcorner-logo" height="35" width="170">
+                </a>        
+            </div>
+            <div class="hidden md:block">
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4 relative group">
+                      <button class="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-700 hover:text-white focus:outline-none">
+                        Kategori
+                      </button>
+                      <!-- Dropdown Menu -->
+                      <div class="absolute hidden bg-white text-black rounded-md shadow-lg mt-9 -left-5 group-hover:block">
+                        <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-700 hover:text-white">Makanan</a>
+                        <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-700 hover:text-white">Minuman</a>
+                      </div>
+                    </div>
+                  </div>                                
+            </div>
+          </div>
+
+        <!-- Bagian Tengah: Kotak Pencarian -->
+        <div class="flex items-center justify-center flex-1">
+            <div class="relative w-full max-w-lg">
+              <input type="text" placeholder="Cari sesuatu..." class="w-full py-2 pl-4 pr-12 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <button class="absolute inset-y-0 right-0 flex items-center px-4 text-white bg-blue-500 rounded-r-full hover:bg-blue-600 focus:outline-none">
+                Cari
+              </button>
+            </div>
+          </div>
+
+        <!-- Bagian Kanan (Profil dan Notifikasi) -->
+          <div class="hidden md:block">
+            <div class="ml-4 flex items-center md:ml-6">
+              <!-- Tombol Keranjang -->
+              <button type="button" class="relative rounded-full bg-white p-1 text-black hover:bg-gray-200 hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 mr-2">
+                <span class="sr-only">View cart</span>
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2m0 0L6 15h12l1.6-8H5.4m.4-2h14.4m-6 12a2 2 0 1 0 4 0m-8 0a2 2 0 1 0 4 0" />
+                </svg>
+              </button>
+              <!-- Tombol Notifikasi -->
+              <button type="button" class="relative rounded-full bg-white p-1 text-black hover:bg-gray-200 hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 mr">
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only">View notifications</span>
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                </svg>
+              </button>
+  
+              <!-- Profile dropdown -->
+              <div class="relative ml-3">
+                <div>
+                  <button @click="isOpen = !isOpen" type="button" class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                    <span class="absolute -inset-1.5"></span>
+                    <span class="sr-only">Open user menu</span>
+                    <img class="size-8 rounded-full" src="https://i.pinimg.com/236x/56/2e/be/562ebed9cd49b9a09baa35eddfe86b00.jpg" alt="">
+                  </button>
+                </div>
+                <div     
+                x-show="isOpen"
+                x-transition:enter="transition ease-out duration-100 transform"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75 transform"
+                x-transition:leave-start="opacity-100 scale-100"
+                x-transition:leave-end="opacity-0 scale-95"
+                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                  <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">My Profile</a>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="-mr-2 flex md:hidden">
+            <!-- Mobile menu button -->
+            <button type="button" @click="isOpen = !isOpen" class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" aria-controls="mobile-menu" aria-expanded="false">
+              <span class="absolute -inset-0.5"></span>
+              <span class="sr-only">Open main menu</span>
+              <!-- Menu open: "hidden", Menu closed: "block" -->
+              <svg :class="{'hidden': isOpen, 'block': !isOpen }" class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              <!-- Menu open: "block", Menu closed: "hidden" -->
+              <svg :class="{'block': isOpen, 'hidden': !isOpen }" class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Mobile menu, show/hide based on menu state. -->
+      <div x-show="isOpen" class="md:hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->          
+          <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white">Keranjang</a>
+          <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white">Notifikasi</a>
+      
+      <!-- Tambahkan bagian "Kategori" di sini -->
+        <div class="relative group">
+        <button class="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white focus:outline-none">
+          Kategori
+        </button>
+        <!-- Dropdown Menu untuk Mobile -->
+        <div class="hidden group-hover:block bg-white text-black rounded-md shadow-lg mt-2">
+          <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700 hover:text-white">Makanan</a>
+          <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700 hover:text-white">Minuman</a>
+        </div>
+      </div>  
+        </div>
+        <div class=" border-gray-700 pb-3 pt-4">
+          <div class="flex items-center px-5">
+            <div class="shrink-0">
+              <img class="size-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+            </div>
+            <div class="ml-3">
+              <div class="text-base/5 font-medium text-black">Tom Cook</div>
+              <div class="text-sm font-medium text-black">tom@example.com</div>
+            </div>
+          </div>
+          <div class="mt-3 space-y-1 px-2">
+            <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white">My Profile</a>
+            <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white">Settings</a>
+            <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white">Sign out</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <div class="bg-white">
+        <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+          <h2 class="sr-only">Products</h2>
+      
+          <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            <a href="#" class="group">
+              <img src="https://assets.klikindomaret.com/products/20069151/20069151_2.webp" alt="Siip" class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]">
+              <h3 class="mt-4 text-sm text-gray-700">Siip</h3>
+              <p class="mt-1 text-lg font-medium text-gray-900">$48</p>
+            </a>
+            <a href="#" class="group">
+              <img src="https://c.alfagift.id/product/1/1_A09870002437_20240521171542884_base.jpg" alt="Taro" class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]">
+              <h3 class="mt-4 text-sm text-gray-700">Taro</h3>
+              <p class="mt-1 text-lg font-medium text-gray-900">$35</p>
+            </a>
+            <a href="#" class="group">
+              <img src="https://images-cdn.ubuy.co.id/6350f3dd88e36a5511783026-coca-cola-original-bottle-500ml-pack-of.jpg" alt="Coca cola" class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]">
+              <h3 class="mt-4 text-sm text-gray-700">Coca Cola</h3>
+              <p class="mt-1 text-lg font-medium text-gray-900">$89</p>
+            </a>
+            <a href="#" class="group">
+              <img src="https://i0.wp.com/99ninetynine.com/wp-content/uploads/2022/12/f14194a9ea2f7e683ac46c4260511c89.jpg?fit=500%2C500&ssl=1" alt="kopikap" class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]">
+              <h3 class="mt-4 text-sm text-gray-700">Kopikap</h3>
+              <p class="mt-1 text-lg font-medium text-gray-900">$35</p>
+            </a>
+      
+            <!-- More products... -->
+          </div>
+        </div>
+      </div>      
+    </main>
+  </div>  
+</body>
+</html>
