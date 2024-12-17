@@ -1,0 +1,19 @@
+[
+    {
+      "id": 1,
+      "name": "Nabati Siip Snack Bite Size Keju",
+      "price": 5000,
+      "old_price": null,
+      "image_url": "./assets/images/20069151.jpg",
+      "stock": 50
+    },
+    {
+      "id": 2,
+      "name": "Boyki Snack Jadul",
+      "price": 2000,
+      "old_price": null,
+      "image_url": "./assets/images/boyki.jpg",
+      "stock": 5
+    }
+  ]
+  
